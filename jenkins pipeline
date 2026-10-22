@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Infracode') {
+            steps {
+                git branch: 'main', url: 'https://github.com/udayasri1020/devops18.git'
+
+            }
+        }
+        stage("Init") {
+            steps {
+                sh 'echo -e "Yes\n" | terraform init'
+            }
+        }
+        stage("Plan") {
+            steps {
+            sh 'terraform plan'
+            
+        }
+    }
+    stage("Action") {
+        steps {
+        sh 'terraform $action --auto-approve'
+    }
+    
+}
+}
+}
